@@ -29,96 +29,85 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.flp_menu = new System.Windows.Forms.FlowLayoutPanel();
+            this.cb_generalSettingVisible = new System.Windows.Forms.CheckBox();
+            this.pan_generalSettings = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            this.flp_menu.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.panel1);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 450);
-            this.splitContainer1.SplitterDistance = 160;
+            this.splitContainer1.Panel2.Controls.Add(this.flp_menu);
+            this.splitContainer1.Size = new System.Drawing.Size(2093, 1040);
+            this.splitContainer1.SplitterDistance = 1370;
+            this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 0;
+            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
-            // splitContainer2
+            // flp_menu
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
+            this.flp_menu.AutoScroll = true;
+            this.flp_menu.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.flp_menu.Controls.Add(this.cb_generalSettingVisible);
+            this.flp_menu.Controls.Add(this.pan_generalSettings);
+            this.flp_menu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flp_menu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flp_menu.Location = new System.Drawing.Point(0, 0);
+            this.flp_menu.Margin = new System.Windows.Forms.Padding(0);
+            this.flp_menu.Name = "flp_menu";
+            this.flp_menu.Padding = new System.Windows.Forms.Padding(10);
+            this.flp_menu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.flp_menu.Size = new System.Drawing.Size(720, 1040);
+            this.flp_menu.TabIndex = 0;
+            this.flp_menu.WrapContents = false;
             // 
-            // splitContainer2.Panel1
+            // cb_generalSettingVisible
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.panel2);
+            this.cb_generalSettingVisible.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cb_generalSettingVisible.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.cb_generalSettingVisible.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_generalSettingVisible.Location = new System.Drawing.Point(50, 13);
+            this.cb_generalSettingVisible.Name = "cb_generalSettingVisible";
+            this.cb_generalSettingVisible.Size = new System.Drawing.Size(647, 55);
+            this.cb_generalSettingVisible.TabIndex = 5;
+            this.cb_generalSettingVisible.Text = "Project instellingen";
+            this.cb_generalSettingVisible.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cb_generalSettingVisible.UseVisualStyleBackColor = false;
+            this.cb_generalSettingVisible.CheckedChanged += new System.EventHandler(this.cb_generalSettingVisible_CheckedChanged);
             // 
-            // splitContainer2.Panel2
+            // pan_generalSettings
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.panel3);
-            this.splitContainer2.Size = new System.Drawing.Size(636, 450);
-            this.splitContainer2.SplitterDistance = 423;
-            this.splitContainer2.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.AutoSize = true;
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(160, 450);
-            this.panel1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(423, 450);
-            this.panel2.TabIndex = 1;
-            // 
-            // panel3
-            // 
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(209, 450);
-            this.panel3.TabIndex = 2;
+            this.pan_generalSettings.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pan_generalSettings.Location = new System.Drawing.Point(50, 74);
+            this.pan_generalSettings.Name = "pan_generalSettings";
+            this.pan_generalSettings.Size = new System.Drawing.Size(647, 408);
+            this.pan_generalSettings.TabIndex = 6;
+            this.pan_generalSettings.Visible = false;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(2093, 1040);
             this.Controls.Add(this.splitContainer1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
+            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.flp_menu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -126,10 +115,9 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.FlowLayoutPanel flp_menu;
+        private System.Windows.Forms.CheckBox cb_generalSettingVisible;
+        private System.Windows.Forms.Panel pan_generalSettings;
     }
 }
 
