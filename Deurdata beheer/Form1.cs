@@ -20,6 +20,7 @@ namespace Deurdata_beheer
         public Form1()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
 
         }
 
@@ -32,8 +33,6 @@ namespace Deurdata_beheer
                 OrderDescription = "",
                 Reference = "",
                 NumberOfRows = 1,
-
-                
             };
 
             Row row = new Row
@@ -100,7 +99,6 @@ namespace Deurdata_beheer
 
         public void WriteToIni<T>(T obj, string section, string filePath)
         {
-
             var type = typeof(T);
 
             foreach (var prop in type.GetProperties())
@@ -122,10 +120,6 @@ namespace Deurdata_beheer
                     ini.INIWrite(filePath, section, key, value);
                 }
             }
-
         }
-
-
-
     }
 }

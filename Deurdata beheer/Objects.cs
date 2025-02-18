@@ -23,7 +23,6 @@ namespace Deurdata_beheer
         [Description("NormalRightOpen")] ND,
     }
 
-
     public class StructureParameters
     {
         [ExportName("Sezione_Mont_SX")]
@@ -135,36 +134,6 @@ namespace Deurdata_beheer
         public int NumberOfRows { get; set; }
 
         public List<Row> Rows { get; set; } = new List<Row>();
-    }
-    public static class IniExporter
-    {
-        public static void WriteToIni<T>(T obj, string section, string filePath)
-        {
-            var lines = new List<string>();
-            var type = typeof(T);
-
-            foreach (var prop in type.GetProperties())
-            {
-                var attr = prop.GetCustomAttribute<ExportNameAttribute>();
-                if (attr != null)
-                {
-                    var key = attr.Name;
-                    var value = prop.GetValue(obj)?.ToString() ?? string.Empty;
-
-                    if (prop.PropertyType == typeof(OpeningDirectionType))
-                    {
-                        var enumValue = (OpeningDirectionType)prop.GetValue(obj);
-                        var enumMember = enumValue.GetType().GetField(enumValue.ToString());
-                        var enumAttr = enumMember.GetCustomAttribute<ExportNameAttribute>();
-                        value = enumAttr?.Name ?? value;
-                    }
-
-                    lines.Add($"ini.INIWrite{{{section}, {key}, {value}}}");
-                }
-            }
-
-            //File.AppendAllLines(filePath, lines);
-        }
     }
 
 }
