@@ -44,17 +44,17 @@ namespace Deurdata_beheer
 
     public class Frame
     {
-        public StructureParameters Parameters { get; set; }
+        public StructureParameters StructureParameters { get; set; }
     }
     public class Sash
     {
-        public StructureParameters Parameters { get; set; }
+        public StructureParameters StructureParameters { get; set; }
     }
 
-    public class Rows
+    public class Row
     {
         [ExportName("RIFERIMENTO")]
-        public int Reference { get; set; } = 1;
+        public string Reference { get; set; }
 
         [ExportName("DESCRIZIONE_RIGA")]
         public string RowDescription { get; set; }
@@ -76,9 +76,6 @@ namespace Deurdata_beheer
 
         [ExportName("Configurazione_Ferramenta")]
         public string HardwareConfiguration { get; set; }
-
-        [ExportName("Configurazione_Scuro")]
-        public string ShutterConfiguration { get; set; }
 
         [ExportName("Larghezza_Serramento")]
         public decimal Width { get; set; }
@@ -137,7 +134,7 @@ namespace Deurdata_beheer
         [ExportName("Numero_Righe")]
         public int NumberOfRows { get; set; }
 
-        public Rows Rows { get; set; }
+        public List<Row> Rows { get; set; } = new List<Row>();
     }
     public static class IniExporter
     {
