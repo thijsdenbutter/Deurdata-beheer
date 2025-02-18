@@ -29,13 +29,16 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.flp_menu = new System.Windows.Forms.FlowLayoutPanel();
-            this.cb_generalSettingVisible = new System.Windows.Forms.CheckBox();
-            this.pan_generalSettings = new System.Windows.Forms.Panel();
+            this.pan_Menu = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.pan_GeneralSettings = new System.Windows.Forms.Panel();
+            this.cb_GeneralSettings = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.flp_menu.SuspendLayout();
+            this.pan_Menu.SuspendLayout();
+            this.pan_GeneralSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -47,67 +50,85 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.flp_menu);
-            this.splitContainer1.Size = new System.Drawing.Size(2093, 1040);
-            this.splitContainer1.SplitterDistance = 1370;
+            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer1.Panel2.Controls.Add(this.pan_Menu);
+            this.splitContainer1.Size = new System.Drawing.Size(2952, 1622);
+            this.splitContainer1.SplitterDistance = 1932;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 0;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
-            // flp_menu
+            // pan_Menu
             // 
-            this.flp_menu.AutoScroll = true;
-            this.flp_menu.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.flp_menu.Controls.Add(this.cb_generalSettingVisible);
-            this.flp_menu.Controls.Add(this.pan_generalSettings);
-            this.flp_menu.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flp_menu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flp_menu.Location = new System.Drawing.Point(0, 0);
-            this.flp_menu.Margin = new System.Windows.Forms.Padding(0);
-            this.flp_menu.Name = "flp_menu";
-            this.flp_menu.Padding = new System.Windows.Forms.Padding(10);
-            this.flp_menu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.flp_menu.Size = new System.Drawing.Size(720, 1040);
-            this.flp_menu.TabIndex = 0;
-            this.flp_menu.WrapContents = false;
+            this.pan_Menu.Controls.Add(this.checkBox1);
+            this.pan_Menu.Controls.Add(this.pan_GeneralSettings);
+            this.pan_Menu.Controls.Add(this.cb_GeneralSettings);
+            this.pan_Menu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pan_Menu.Location = new System.Drawing.Point(0, 0);
+            this.pan_Menu.Name = "pan_Menu";
+            this.pan_Menu.Size = new System.Drawing.Size(1017, 1622);
+            this.pan_Menu.TabIndex = 0;
             // 
-            // cb_generalSettingVisible
+            // checkBox1
             // 
-            this.cb_generalSettingVisible.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cb_generalSettingVisible.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.cb_generalSettingVisible.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_generalSettingVisible.Location = new System.Drawing.Point(50, 13);
-            this.cb_generalSettingVisible.Name = "cb_generalSettingVisible";
-            this.cb_generalSettingVisible.Size = new System.Drawing.Size(647, 55);
-            this.cb_generalSettingVisible.TabIndex = 5;
-            this.cb_generalSettingVisible.Text = "Project instellingen";
-            this.cb_generalSettingVisible.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cb_generalSettingVisible.UseVisualStyleBackColor = false;
-            this.cb_generalSettingVisible.CheckedChanged += new System.EventHandler(this.cb_generalSettingVisible_CheckedChanged);
+            this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.checkBox1.Location = new System.Drawing.Point(0, 1221);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(1017, 27);
+            this.checkBox1.TabIndex = 2;
+            this.checkBox1.Text = "Algemene instellingen";
+            this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // pan_generalSettings
+            // pan_GeneralSettings
             // 
-            this.pan_generalSettings.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.pan_generalSettings.Location = new System.Drawing.Point(50, 74);
-            this.pan_generalSettings.Name = "pan_generalSettings";
-            this.pan_generalSettings.Size = new System.Drawing.Size(647, 408);
-            this.pan_generalSettings.TabIndex = 6;
-            this.pan_generalSettings.Visible = false;
+            this.pan_GeneralSettings.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pan_GeneralSettings.Controls.Add(this.button1);
+            this.pan_GeneralSettings.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pan_GeneralSettings.Location = new System.Drawing.Point(0, 27);
+            this.pan_GeneralSettings.Name = "pan_GeneralSettings";
+            this.pan_GeneralSettings.Size = new System.Drawing.Size(1017, 1194);
+            this.pan_GeneralSettings.TabIndex = 1;
+            // 
+            // cb_GeneralSettings
+            // 
+            this.cb_GeneralSettings.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cb_GeneralSettings.AutoSize = true;
+            this.cb_GeneralSettings.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cb_GeneralSettings.Location = new System.Drawing.Point(0, 0);
+            this.cb_GeneralSettings.Name = "cb_GeneralSettings";
+            this.cb_GeneralSettings.Size = new System.Drawing.Size(1017, 27);
+            this.cb_GeneralSettings.TabIndex = 0;
+            this.cb_GeneralSettings.Text = "Algemene instellingen";
+            this.cb_GeneralSettings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cb_GeneralSettings.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(235, 319);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2093, 1040);
+            this.ClientSize = new System.Drawing.Size(2952, 1622);
             this.Controls.Add(this.splitContainer1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.flp_menu.ResumeLayout(false);
+            this.pan_Menu.ResumeLayout(false);
+            this.pan_Menu.PerformLayout();
+            this.pan_GeneralSettings.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -115,9 +136,11 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.FlowLayoutPanel flp_menu;
-        private System.Windows.Forms.CheckBox cb_generalSettingVisible;
-        private System.Windows.Forms.Panel pan_generalSettings;
+        private System.Windows.Forms.Panel pan_Menu;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Panel pan_GeneralSettings;
+        private System.Windows.Forms.CheckBox cb_GeneralSettings;
+        private System.Windows.Forms.Button button1;
     }
 }
 
