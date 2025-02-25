@@ -29,22 +29,23 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.pan_Menu = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.pan_GeneralSettings = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.cb_GeneralSettings = new System.Windows.Forms.CheckBox();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.panRows = new System.Windows.Forms.Panel();
+            this.bt_newSash = new System.Windows.Forms.Button();
+            this.pan_Sashes = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.pan_Menu.SuspendLayout();
-            this.pan_GeneralSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.pan_Menu.SuspendLayout();
+            this.pan_GeneralSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -66,6 +67,19 @@
             this.splitContainer1.SplitterDistance = 1388;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.pan_Sashes);
+            this.splitContainer2.Size = new System.Drawing.Size(1388, 1466);
+            this.splitContainer2.SplitterDistance = 202;
+            this.splitContainer2.TabIndex = 0;
             // 
             // pan_Menu
             // 
@@ -94,6 +108,7 @@
             // pan_GeneralSettings
             // 
             this.pan_GeneralSettings.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pan_GeneralSettings.Controls.Add(this.bt_newSash);
             this.pan_GeneralSettings.Controls.Add(this.button1);
             this.pan_GeneralSettings.Dock = System.Windows.Forms.DockStyle.Top;
             this.pan_GeneralSettings.Location = new System.Drawing.Point(0, 27);
@@ -123,28 +138,29 @@
             this.cb_GeneralSettings.Text = "Algemene instellingen";
             this.cb_GeneralSettings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cb_GeneralSettings.UseVisualStyleBackColor = true;
+            this.cb_GeneralSettings.CheckedChanged += new System.EventHandler(this.cb_GeneralSettings_CheckedChanged);
             // 
-            // splitContainer2
+            // bt_newSash
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
+            this.bt_newSash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.bt_newSash.Location = new System.Drawing.Point(3, 1133);
+            this.bt_newSash.Name = "bt_newSash";
+            this.bt_newSash.Size = new System.Drawing.Size(275, 55);
+            this.bt_newSash.TabIndex = 1;
+            this.bt_newSash.Text = "Nieuwe deur";
+            this.bt_newSash.UseVisualStyleBackColor = true;
+            this.bt_newSash.Click += new System.EventHandler(this.bt_newSash_Click);
             // 
-            // splitContainer2.Panel1
+            // pan_Sashes
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.panRows);
-            this.splitContainer2.Size = new System.Drawing.Size(1388, 1466);
-            this.splitContainer2.SplitterDistance = 202;
-            this.splitContainer2.TabIndex = 0;
-            // 
-            // panRows
-            // 
-            this.panRows.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.panRows.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panRows.Location = new System.Drawing.Point(0, 0);
-            this.panRows.Name = "panRows";
-            this.panRows.Size = new System.Drawing.Size(202, 1466);
-            this.panRows.TabIndex = 0;
+            this.pan_Sashes.AutoScroll = true;
+            this.pan_Sashes.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.pan_Sashes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pan_Sashes.Location = new System.Drawing.Point(0, 0);
+            this.pan_Sashes.Name = "pan_Sashes";
+            this.pan_Sashes.Padding = new System.Windows.Forms.Padding(5);
+            this.pan_Sashes.Size = new System.Drawing.Size(202, 1466);
+            this.pan_Sashes.TabIndex = 0;
             // 
             // Form1
             // 
@@ -159,12 +175,12 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.pan_Menu.ResumeLayout(false);
-            this.pan_Menu.PerformLayout();
-            this.pan_GeneralSettings.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.pan_Menu.ResumeLayout(false);
+            this.pan_Menu.PerformLayout();
+            this.pan_GeneralSettings.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -178,7 +194,8 @@
         private System.Windows.Forms.CheckBox cb_GeneralSettings;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.Panel panRows;
+        private System.Windows.Forms.Button bt_newSash;
+        private System.Windows.Forms.Panel pan_Sashes;
     }
 }
 

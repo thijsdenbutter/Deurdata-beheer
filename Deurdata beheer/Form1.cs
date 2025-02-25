@@ -121,5 +121,42 @@ namespace Deurdata_beheer
                 }
             }
         }
+
+        private void cb_GeneralSettings_CheckedChanged(object sender, EventArgs e)
+        {
+            handleCheckChange(pan_GeneralSettings, cb_GeneralSettings.Checked);
+        }
+
+        public void handleCheckChange (Panel panel, bool isChecked)
+        {
+            panel.Visible = isChecked;
+        }
+
+        private void bt_newSash_Click(object sender, EventArgs e)
+        {
+            AddSash();
+        }
+
+        public void AddSash()
+        {
+            Row row = new Row();
+
+            CheckBox checkBox = new CheckBox();
+            checkBox.Name = $"Deur {pan_Sashes.Controls.Count + 1}";
+            checkBox.Text = checkBox.Name;
+            checkBox.Tag = row;
+            checkBox.Appearance = Appearance.Button;
+            checkBox.Height = 45;
+            checkBox.Width = pan_Sashes.Width;
+            checkBox.Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Left;
+            checkBox.Top = (pan_Sashes.Controls.Count > 0) ? pan_Sashes.Controls.Count * (checkBox.Height + 5) : 0;
+
+
+
+            //row.Position = lb_Sashes.Items.Count + 1;
+
+            pan_Sashes.Controls.Add(checkBox);
+        }
+
     }
 }
