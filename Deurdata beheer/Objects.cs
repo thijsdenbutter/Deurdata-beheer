@@ -128,7 +128,7 @@ namespace Deurdata_beheer
         public string OrderDescription { get; set; }
 
         [ExportName("Riferimento")]
-        public string Reference { get; set; }
+        public string Customer { get; set; }
 
         [ExportName("Numero_Righe")]
         public int NumberOfRows { get; set; }

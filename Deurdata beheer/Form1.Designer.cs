@@ -105,14 +105,14 @@
             this.cb_MainRowSettings.Appearance = System.Windows.Forms.Appearance.Button;
             this.cb_MainRowSettings.AutoSize = true;
             this.cb_MainRowSettings.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cb_MainRowSettings.Location = new System.Drawing.Point(0, 144);
+            this.cb_MainRowSettings.Location = new System.Drawing.Point(0, 508);
             this.cb_MainRowSettings.Name = "cb_MainRowSettings";
-            this.cb_MainRowSettings.Size = new System.Drawing.Size(512, 26);
+            this.cb_MainRowSettings.Size = new System.Drawing.Size(512, 27);
             this.cb_MainRowSettings.TabIndex = 2;
             this.cb_MainRowSettings.Text = "configuratie instellingen";
             this.cb_MainRowSettings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cb_MainRowSettings.UseVisualStyleBackColor = true;
-            this.cb_MainRowSettings.CheckedChanged += new System.EventHandler(this.cb_MainRowSettings_CheckedChanged);
+            this.cb_MainRowSettings.CheckedChanged += new System.EventHandler(this.Cb_MainRowSettings_CheckedChanged);
             // 
             // cb_GeneralSettings
             // 
@@ -121,20 +121,20 @@
             this.cb_GeneralSettings.Dock = System.Windows.Forms.DockStyle.Top;
             this.cb_GeneralSettings.Location = new System.Drawing.Point(0, 0);
             this.cb_GeneralSettings.Name = "cb_GeneralSettings";
-            this.cb_GeneralSettings.Size = new System.Drawing.Size(512, 26);
+            this.cb_GeneralSettings.Size = new System.Drawing.Size(512, 27);
             this.cb_GeneralSettings.TabIndex = 0;
             this.cb_GeneralSettings.Tag = "pan_GeneralSettings";
             this.cb_GeneralSettings.Text = "Algemene instellingen";
             this.cb_GeneralSettings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cb_GeneralSettings.UseVisualStyleBackColor = true;
-            this.cb_GeneralSettings.CheckedChanged += new System.EventHandler(this.cb_GeneralSettings_CheckedChanged);
+            this.cb_GeneralSettings.CheckedChanged += new System.EventHandler(this.Cb_GeneralSettings_CheckedChanged);
             // 
             // generalSettingPanel1
             // 
             this.generalSettingPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.generalSettingPanel1.Location = new System.Drawing.Point(0, 26);
+            this.generalSettingPanel1.Location = new System.Drawing.Point(0, 27);
             this.generalSettingPanel1.Name = "generalSettingPanel1";
-            this.generalSettingPanel1.Size = new System.Drawing.Size(512, 118);
+            this.generalSettingPanel1.Size = new System.Drawing.Size(512, 481);
             this.generalSettingPanel1.TabIndex = 0;
             // 
             // Form1
@@ -166,9 +166,9 @@
         private System.Windows.Forms.Panel pan_Menu;
         private System.Windows.Forms.CheckBox cb_GeneralSettings;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.Panel pan_Sashes;
         private generalSettingPanel generalSettingPanel1;
         private System.Windows.Forms.CheckBox cb_MainRowSettings;
+        public System.Windows.Forms.Panel pan_Sashes;
     }
 }
 
