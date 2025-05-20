@@ -6,134 +6,89 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.ComponentModel;
+
 
 namespace Deurdata_beheer
 {
-    // Attribute to define export names
     [AttributeUsage(AttributeTargets.Property)]
-    public class ExportNameAttribute : Attribute
+    public class LabelAttribute : Attribute
     {
-        public string Name { get; }
-        public ExportNameAttribute(string name) => Name = name;
+        public string Text { get; }
+
+        public LabelAttribute(string text)
+        {
+            Text = text;
+        }
+    }
+    public class EnumItem<T>
+    {
+        public T Value { get; set; }
+        public string Label { get; set; }
+
+        public override string ToString() => Label;
     }
 
-    public enum OpeningDirectionType
+    public class ProjectInfo
     {
-        [Description("NormalLeftOpen")] NS,
-        [Description("NormalRightOpen")] ND,
+        [Label("Order nummer")]
+        public int OrderNumber { get; set; }
+        [Label("Project naam")]
+        public string ProjectName { get; set; }
+        [Label("Project referentie")]
+        public string ProjectReference { get; set; }
+        [Label("Deuren")]
+        public List<Sash> Sashes { get; set; } = new List<Sash>();
     }
 
-    public class StructureParameters
+    public enum OpeningType
     {
-        [ExportName("Sezione_Mont_SX")]
-        public double LeftPostSection { get; set; }
-
-        [ExportName("Sezione_Tra_SUP")]
-        public double TopTransomSection { get; set; }
-
-        [ExportName("Sezione_Mont_DX")]
-        public double RightPostSection { get; set; }
-
-        [ExportName("Sezione_Tra_INF")]
-        public double BottomTransomSection { get; set; }
-
-        [ExportName("Spessore")]
-        public double Thickness { get; set; }
+        [Description("Links binnen")]
+        LeftOpenIn,
+        [Description("Rechts binnen")]
+        RightOpenIn,
+        [Description("Links buiten")]
+        LeftOpenOut,
+        [Description("Rechts buiten")]
+        RightOpenOut
     }
 
-    public class Frame
+    public class Geometry
     {
-        public StructureParameters StructureParameters { get; set; }
     }
+
     public class Sash
     {
-        public StructureParameters StructureParameters { get; set; }
-    }
+        // Algemeen
+        [Label("Breedte")]
+        public double Width { get; set; }
+        [Label("Hoogte")]
+        public double Height { get; set; }
+        [Label("Dikte")]
+        public double Thickness { get; set; }
+        [Label("Draairichting")]
+        public OpeningType Opening { get; set; }
+        //public Geometry Geometry { get; set; } = new Geometry();
 
-    public class Row
+        //public bool DoubleOpening { get; set; }
+
+        //Hang- en sluitwerk
+        [Label("Slot configuratie")]
+        public HardwareItem LockConfiguration { get; set; } = new HardwareItem();
+        [Label("Scharnier type")]
+        public HardwareItem HingeType { get; set; }
+        [Label("Kruk hoogte")]
+        public double HandleHeight { get; set; } = 1050;
+        [Label("Scharnier posities")]
+        public List<double> HingePositions { get; set; }
+    }
+    public class HardwareItem
     {
-        [ExportName("RIFERIMENTO")]
-        public string Reference { get; set; }
-
-        [ExportName("DESCRIZIONE_RIGA")]
-        public string RowDescription { get; set; }
-
-        [ExportName("PROGETTO_DEFAULT")]
-        public string DefaultProject { get; set; } = "EMPTY";
-
-        [ExportName("Posizione")]
-        public int Position { get; set; }
-
-        [ExportName("Quantità")]
-        public int Quantity { get; set; }
-
-        [ExportName("Configurazione_Telaio")]
-        public string FrameConfiguration { get; set; }
-
-        [ExportName("Configurazione_Anta")]
-        public string SashConfiguration { get; set; }
-
-        [ExportName("Configurazione_Ferramenta")]
-        public string HardwareConfiguration { get; set; }
-
-        [ExportName("Larghezza_Serramento")]
-        public decimal Width { get; set; }
-
-        [ExportName("Altezza_Serramento")]
-        public decimal Height { get; set; }
-
-        [ExportName("Forma_Esterna")]
-        public string OuterShape { get; set; } = "RETTANGOLO";
-
-        [ExportName("Soglia")]
-        public string Threshold { get; set; } = "L";
-
-        [ExportName("Spessore_Telaio")]
-        public decimal FrameThickness { get; set; } = 0;
-
-        [ExportName("Numero_Ante")]
-        public int NumberOfSashes { get; set; } = 1;
-
-        [ExportName("Anta_apre")]
-        public int SashOpening { get; set; } = 1;
-
-        [ExportName("Sormonto_DX")]
-        public decimal RightOverlap { get; set; } = 0;
-
-        [ExportName("Sormonto_SUP")]
-        public decimal TopOverlap { get; set; } = 0;
-
-        [ExportName("Sormonto_SX")]
-        public decimal LeftOverlap { get; set; } = 0;
-
-        [ExportName("Sormonto_INF")]
-        public decimal BottomOverlap { get; set; } = 0;
-
-        [ExportName("Apertura")]
-        public OpeningDirectionType OpeningDirection { get; set; }
-
-        [ExportName("Note_Riga")]
-        public string RowNotes { get; set; }
-
-        public Frame Frame { get; set; }
-        public Sash Sash { get; set; }
+        [Label("Naam")]
+        public string Name { get; set; } = "";
+        [Label("Artikel nummer")]
+        public string Code { get; set; } = "";
     }
 
-    public class OrderHeader
-    {
-        [ExportName("Numero_Commessa")]
-        public int OrderNumber { get; set; }
-
-        [ExportName("Descrizione_Commessa")]
-        public string OrderDescription { get; set; }
-
-        [ExportName("Riferimento")]
-        public string Customer { get; set; }
-
-        [ExportName("Numero_Righe")]
-        public int NumberOfRows { get; set; }
-
-        public List<Row> Rows { get; set; } = new List<Row>();
-    }
 
 }
