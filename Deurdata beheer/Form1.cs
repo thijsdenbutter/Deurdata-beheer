@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -51,11 +52,25 @@ namespace Deurdata_beheer
             FillOpenings();
             FillLockConf();
 
+            UpdateGridWidth();
+
+        }
+        private void UpdateGridWidth()
+        {
+            int totalWidth = 0;
+
+            foreach (DataGridViewColumn col in dgv_GeoTopTransom.Columns)
+            {
+                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                totalWidth += col.Width;
+            }
+
+            dgv_GeoTopTransom.Width = totalWidth + (dgv_GeoTopTransom.RowHeadersVisible ? dgv_GeoTopTransom.RowHeadersWidth : 0) + SystemInformation.VerticalScrollBarWidth;
         }
 
         private void FillLockConf()
         {
-            switch (dataSource) 
+            switch (dataSource)
             {
                 case DataSource.ArchimedeImport:
                     break;
@@ -162,6 +177,7 @@ namespace Deurdata_beheer
 
             var newSash = new Sash();
             selectedProject.Sashes.Add(newSash);
+            selectedSash = newSash;
 
             TreeNode selectedProjectNode = tv_Projects.Nodes.Cast<TreeNode>().FirstOrDefault(n => n.Tag == selectedProject);
             if (selectedProjectNode == null) return;
@@ -248,6 +264,58 @@ namespace Deurdata_beheer
             if (double.TryParse(txt_HandleHeight.Text, out double handleHeight))
                 selectedSash.HandleHeight = handleHeight;
 
+            selectedSash.Geometry.TopTransom.Clear();
+
+            foreach (DataGridViewRow row in dgv_GeoTopTransom.Rows)
+            {
+                if (row.IsNewRow) continue;
+                Point point = new Point
+                {
+                    Length = Convert.ToDouble(row.Cells["geoTopTransomLength"].Value),
+                    Offset = Convert.ToDouble(row.Cells["geoTopTransomOffset"].Value)
+                };
+                selectedSash.Geometry.TopTransom.Add(point);
+            }
+
+            selectedSash.Geometry.BottomTransom.Clear();
+
+            foreach (DataGridViewRow row in dgv_GeoBottomTransom.Rows)
+            {
+                if (row.IsNewRow) continue;
+                Point point = new Point
+                {
+                    Length = Convert.ToDouble(row.Cells["geoBottomTransomLength"].Value),
+                    Offset = Convert.ToDouble(row.Cells["geoBottomTransomOffset"].Value)
+                };
+                selectedSash.Geometry.BottomTransom.Add(point);
+            }
+
+            selectedSash.Geometry.LeftPost.Clear();
+
+            foreach (DataGridViewRow row in dgv_GeoLeftPost.Rows)
+            {
+                if (row.IsNewRow) continue;
+                Point point = new Point
+                {
+                    Length = Convert.ToDouble(row.Cells["geoLeftPostLength"].Value),
+                    Offset = Convert.ToDouble(row.Cells["geoLeftPostOffset"].Value)
+                };
+                selectedSash.Geometry.LeftPost.Add(point);
+            }
+
+            selectedSash.Geometry.RightPost.Clear();
+
+            foreach (DataGridViewRow row in dgv_GeoRightPost.Rows)
+            {
+                if (row.IsNewRow) continue;
+                Point point = new Point
+                {
+                    Length = Convert.ToDouble(row.Cells["geoRightPostLength"].Value),
+                    Offset = Convert.ToDouble(row.Cells["geoRightPostOffset"].Value)
+                };
+                selectedSash.Geometry.RightPost.Add(point);
+            }
+
             // Get sashes label
 
             string sashesLabel = typeof(ProjectInfo)
@@ -260,6 +328,7 @@ namespace Deurdata_beheer
             TreeNode selectedSashNode = selectedProjectNode.Nodes
                 .Cast<TreeNode>().FirstOrDefault(n => n.Text == $"{sashesLabel}:").Nodes
                 .Cast<TreeNode>().FirstOrDefault(n => n.Tag == selectedSash);
+
 
             if (selectedSashNode == null) return;
 
@@ -297,7 +366,7 @@ namespace Deurdata_beheer
                 else if (value is Enum enumValue)
                 {
                     string enumLabel = GetEnumDescription(enumValue);
-                        propNode.Text = $"{label}: {enumLabel}";
+                    propNode.Text = $"{label}: {enumLabel}";
                     continue;
                 }
 
@@ -311,8 +380,27 @@ namespace Deurdata_beheer
                 // Specifiek: List<Sash> → sla over (die verwerk je bij opslaan met BuildTree opnieuw)
                 if (value is IEnumerable<Sash>) continue;
 
-                // Andere lijsten overslaan of logica toevoegen (optioneel)
-                if (value is IEnumerable<object>) continue;
+                else if (value is IEnumerable<object> lijst && !(value is string))
+                {
+                    // bestaande lijstnode vinden
+                    TreeNode lijstNode = node.Nodes.Cast<TreeNode>()
+                        .FirstOrDefault(n => n.Text.StartsWith($"{label}:"));
+
+                    if (lijstNode != null)
+                    {
+                        lijstNode.Nodes.Clear(); // leegmaken en opnieuw opbouwen
+                        int index = 1;
+                        foreach (var item in lijst)
+                        {
+                            TreeNode itemNode = BuildTreeFromObject($"{label} {index}", item);
+                            itemNode.Tag = item;
+                            lijstNode.Nodes.Add(itemNode);
+                            index++;
+                        }
+                    }
+
+                    continue;
+                }
 
                 // Subobject (zoals HardwareItem) → recursief bijwerken
                 if (propNode != null)
@@ -375,7 +463,12 @@ namespace Deurdata_beheer
                     int index = 1;
                     foreach (var item in lijst)
                     {
-                        lijstNode.Nodes.Add(BuildTreeFromObject($"{label} {index}", item));
+                        //lijstNode.Nodes.Add(BuildTreeFromObject($"{label} {index}", item));
+                        //index++;
+
+                        var itemNode = BuildTreeFromObject($"{label} {index}", item);
+                        itemNode.Tag = item; // essentieel
+                        lijstNode.Nodes.Add(itemNode);
                         index++;
                     }
                     root.Nodes.Add(lijstNode);
@@ -383,7 +476,11 @@ namespace Deurdata_beheer
 
                 else if (!value.GetType().IsValueType && !(value is string))
                 {
-                    root.Nodes.Add(BuildTreeFromObject(label, value));
+                    //root.Nodes.Add(BuildTreeFromObject(label, value));
+
+                    TreeNode childNode = BuildTreeFromObject(label, value);
+                    childNode.Tag = value; // essentieel voor updates
+                    root.Nodes.Add(childNode);
                 }
 
                 else
@@ -401,16 +498,15 @@ namespace Deurdata_beheer
 
             if (selectedNode?.Tag == null)
             {
-                selectedNode = FindParentWithTag(selectedNode, typeof(object));
+                selectedNode = FindParentWithTag(selectedNode, typeof(object), true);
             }
 
-            if (selectedNode?.Tag is ProjectInfo project)
+            if (selectedNode?.Tag is Geometry || selectedNode?.Tag is Point )
             {
-                selectedProject = project;
-                txt_OrderNumber.Text = project.OrderNumber.ToString();
-                txt_ProjectName.Text = project.ProjectName ?? "";
+                selectedNode = FindParentWithTag(selectedNode, typeof(Sash), true);
             }
-            else if (selectedNode?.Tag is Sash sash)
+
+            if (selectedNode?.Tag is Sash sash)
             {
                 selectedSash = sash;
                 txt_Width.Text = sash.Width.ToString();
@@ -424,6 +520,17 @@ namespace Deurdata_beheer
                 txt_HandleHeight.Text = sash.HandleHeight.ToString();
                 // Hier kun je de andere eigenschappen van de Sash instellen
 
+                TreeNode projectNode = FindParentWithTag(e.Node, typeof(ProjectInfo), false);
+                if (projectNode?.Tag is ProjectInfo parentProject)
+                    selectedProject = parentProject;
+            }
+            else if (selectedNode?.Tag is ProjectInfo project)
+            {
+                selectedProject = project;
+                txt_OrderNumber.Text = project.OrderNumber.ToString();
+                txt_ProjectName.Text = project.ProjectName ?? "";
+                // Hier kun je de andere eigenschappen van de Sash instellen
+
             }
             else
             {
@@ -432,14 +539,18 @@ namespace Deurdata_beheer
             }
         }
 
-        private TreeNode FindParentWithTag(TreeNode node, Type targetType)
+        private TreeNode FindParentWithTag(TreeNode node, Type targetType, bool selectParent)
         {
             while (node?.Parent != null)
             {
                 node = node.Parent;
                 if (node.Tag != null && targetType.IsAssignableFrom(node.Tag.GetType()))
                 {
-                    tv_Projects.SelectedNode = node;
+
+                    if (selectParent)
+                    {
+                        tv_Projects.SelectedNode = node;
+                    }
                     return node;
                 }
             }
@@ -488,7 +599,7 @@ namespace Deurdata_beheer
                 selectedProject = null;
             }
 
-            TreeNode parentNode = FindParentWithTag(node, typeof(object));
+            TreeNode parentNode = FindParentWithTag(node, typeof(object), false);
             if (parentNode == null) return;
 
             if (parentNode.Tag is Sash parentSash)
@@ -567,6 +678,111 @@ namespace Deurdata_beheer
                     ini.INIWrite(outputPath, section, "SEZIONE_TRA_INF", "0");
                     ini.INIWrite(outputPath, section, "SPESSORE", "114");
 
+                    if (sash.Geometry.TopTransom.Count != 0)
+                    {
+                        ini.INIWrite(outputPath, section, "APPLICPROF_TRA_SUP", "A");
+
+                        string geoLines = "";
+                        int count = 0;
+
+                        double startX = sash.Geometry.TopTransom[0].Length;
+                        double startY = sash.Geometry.TopTransom[0].Offset;
+
+                        for (i = 1; i < sash.Geometry.TopTransom.Count; i++)
+                        {
+                            double endX = sash.Geometry.TopTransom[i].Length;
+                            double endY = sash.Geometry.TopTransom[i].Offset;
+
+                            geoLines += $"|L|{startX}|{-startY}|{endX}|{-endY}";
+                            count++;
+
+                            startX = endX;
+                            startY = endY;
+                        }
+
+                        geoLines = count.ToString() + geoLines;
+                        ini.INIWrite(outputPath, section, "PROFILO_TRA_SUP", geoLines);
+
+                    }
+                    if (sash.Geometry.BottomTransom.Count != 0)
+                    {
+                        ini.INIWrite(outputPath, section, "APPLICPROF_TRA_INF", "A");
+
+                        string geoLines = "";
+                        int count = 0;
+
+                        double startX = sash.Geometry.BottomTransom[0].Length;
+                        double startY = sash.Geometry.BottomTransom[0].Offset;
+
+                        for (i = 1; i < sash.Geometry.BottomTransom.Count; i++)
+                        {
+                            double endX = sash.Geometry.BottomTransom[i].Length;
+                            double endY = sash.Geometry.BottomTransom[i].Offset;
+
+                            geoLines += $"|L|{startX}|{-startY}|{endX}|{-endY}";
+                            count++;
+
+                            startX = endX;
+                            startY = endY;
+                        }
+
+                        geoLines = count.ToString() + geoLines;
+                        ini.INIWrite(outputPath, section, "PROFILO_TRA_INF", geoLines);
+
+                    }
+                    if (sash.Geometry.LeftPost.Count != 0)
+                    {
+                        ini.INIWrite(outputPath, section, "APPLICPROF_MONT_DX", "A");
+
+                        string geoLines = "";
+                        int count = 0;
+
+                        double startX = sash.Geometry.LeftPost[0].Length;
+                        double startY = sash.Geometry.LeftPost[0].Offset;
+
+                        for (i = 1; i < sash.Geometry.LeftPost.Count; i++)
+                        {
+                            double endX = sash.Geometry.LeftPost[i].Length;
+                            double endY = sash.Geometry.LeftPost[i].Offset;
+
+                            geoLines += $"|L|{startX}|{-startY}|{endX}|{-endY}";
+                            count++;
+
+                            startX = endX;
+                            startY = endY;
+                        }
+
+                        geoLines = count.ToString() + geoLines;
+                        ini.INIWrite(outputPath, section, "PROFILO_MONT_DX", geoLines);
+
+                    }
+                    if (sash.Geometry.RightPost.Count != 0)
+                    {
+                        ini.INIWrite(outputPath, section, "APPLICPROF_MONT_SX", "A");
+
+                        string geoLines = "";
+                        int count = 0;
+
+                        double startX = sash.Geometry.RightPost[0].Length;
+                        double startY = sash.Geometry.RightPost[0].Offset;
+
+                        for (i = 1; i < sash.Geometry.RightPost.Count; i++)
+                        {
+                            double endX = sash.Geometry.RightPost[i].Length;
+                            double endY = sash.Geometry.RightPost[i].Offset;
+
+                            geoLines += $"|L|{startX}|{-startY}|{endX}|{-endY}";
+                            count++;
+
+                            startX = endX;
+                            startY = endY;
+                        }
+
+                        geoLines = count.ToString() + geoLines;
+                        ini.INIWrite(outputPath, section, "PROFILO_MONT_SX", geoLines);
+
+                    }
+
 
                     section = pos + "_ANTA";
 
@@ -578,6 +794,11 @@ namespace Deurdata_beheer
 
                 }
             }
+        }
+
+        private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            UpdateGridWidth();
         }
     }
 }

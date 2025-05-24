@@ -55,6 +55,24 @@ namespace Deurdata_beheer
 
     public class Geometry
     {
+        [Label("Bovendorpel")]
+        public List<Point> TopTransom { get; set; } = new List<Point>();
+
+        [Label("Onderdorpel")]
+        public List<Point> BottomTransom { get; set; } = new List<Point>();
+
+        [Label("Linkerstijl")]
+        public List<Point> LeftPost { get; set; } = new List<Point>();
+
+        [Label("Rechterstijl")]
+        public List<Point> RightPost { get; set; } = new List<Point>();
+
+    }
+    public class Point
+    {
+        [Label("Lengte")]
+        public double Length { get; set; }
+        public double Offset { get; set; }
     }
 
     public class Sash
@@ -68,7 +86,8 @@ namespace Deurdata_beheer
         public double Thickness { get; set; }
         [Label("Draairichting")]
         public OpeningType Opening { get; set; }
-        //public Geometry Geometry { get; set; } = new Geometry();
+        [Label("Geometrie")]
+        public Geometry Geometry { get; set; } = new Geometry();
 
         //public bool DoubleOpening { get; set; }
 
