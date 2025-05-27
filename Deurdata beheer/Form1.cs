@@ -661,6 +661,10 @@ namespace Deurdata_beheer
                     ini.INIWrite(outputPath, section, "FORMA_ESTERNA", "RETTANGOLO");
                     ini.INIWrite(outputPath, section, "SOGLIA", "L");
                     ini.INIWrite(outputPath, section, "SPESSORE_TELAIO", "0");
+                    ini.INIWrite(outputPath, section, "NUMERO_AREE", "1"); // In welk vak van de hoofd structuur de deuren worden toegepast.
+                    ini.INIWrite(outputPath, section, "NUMERO_ANTE", "1"); // Aantal draaiende delen.
+                    ini.INIWrite(outputPath, section, "DIMENSIONEANTE", "-1"); // Breedte verdeling voor meerdere deuren.
+                    ini.INIWrite(outputPath, section, "ANTA_APRE", "1"); // Welke opening is actief
 
                     ini.INIWrite(outputPath, section, "APERTURA", sash.Opening == OpeningType.LeftOpenOut || sash.Opening == OpeningType.LeftOpenIn ? "ND" : "NS");
 
@@ -782,6 +786,7 @@ namespace Deurdata_beheer
                         ini.INIWrite(outputPath, section, "PROFILO_MONT_SX", geoLines);
 
                     }
+                    ini.INIWrite(outputPath, section, "CAMBIOFORMAINTANTA", "N"); // Interne zijde deur rechthoekig
 
 
                     section = pos + "_ANTA";
